@@ -75,7 +75,7 @@ Chaque signalement est vérifié avant correction.
 
 ## Qui a fait cette app ?
 
-Le fameux N a été conçu et développé par **MJ Solution Informatique** : création de sites et d'applications web, réparation de matériel informatique et maintenance, pour les particuliers, les commerces et les indépendants. Un projet ou un ordinateur en panne ? Écris-nous via [notre profil GitHub](https://github.com/SolutionInformatique).
+Le fameux N a été conçu et développé par **[MJ Solution Informatique](https://www.mjinformatique.fr/)** : réparation et maintenance de matériel informatique, sécurisation, sauvegarde, réseau, et création de sites et d'applications web. Un projet, un ordinateur en panne, ou simplement un message à propos de l'app ? [Contacte-nous](https://www.mjinformatique.fr/#contact).
 
 ---
 
