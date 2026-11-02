@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2400 2400" width="2400" height="2400">
+  <!-- Motif de fond : petits codes-barres en biais, chacun percé d'un N qui laisse voir le fond.
+       Utilisé comme masque CSS : la couleur vient de la feuille de style (mode clair / sombre). -->
+  <defs>
+    <mask id="trou-n" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="60">
+      <rect width="64" height="60" fill="#fff"/>
+      <path fill="#000" d="M21.5 38V14h5.5l7 13.5V14h5.5v24h-5.5l-7-13.5V38z"/>
+    </mask>
+    <g id="code">
+      <g mask="url(#trou-n)">
+        <rect x="6" y="8" width="2" height="36"/><rect x="9" y="8" width="1" height="36"/>
+        <rect x="11" y="8" width="3" height="36"/><rect x="15" y="8" width="1" height="36"/>
+        <rect x="18" y="8" width="2" height="36"/><rect x="21" y="8" width="1" height="36"/>
+        <rect x="23" y="8" width="3" height="36"/><rect x="27" y="8" width="2" height="36"/>
+        <rect x="30" y="8" width="1" height="36"/><rect x="32" y="8" width="2" height="36"/>
+        <rect x="36" y="8" width="1" height="36"/><rect x="38" y="8" width="3" height="36"/>
+        <rect x="42" y="8" width="1" height="36"/><rect x="44" y="8" width="2" height="36"/>
+        <rect x="47" y="8" width="1" height="36"/><rect x="49" y="8" width="3" height="36"/>
+        <rect x="53" y="8" width="2" height="36"/>
+      </g>
+      <!-- chiffres sous le code, en pointillés -->
+      <g fill-opacity=".55">
+        <rect x="6" y="47" width="3" height="3"/><rect x="11" y="47" width="3" height="3"/><rect x="16" y="47" width="3" height="3"/>
+        <rect x="21" y="47" width="3" height="3"/><rect x="26" y="47" width="3" height="3"/><rect x="31" y="47" width="3" height="3"/>
+        <rect x="36" y="47" width="3" height="3"/><rect x="41" y="47" width="3" height="3"/><rect x="46" y="47" width="3" height="3"/>
+        <rect x="51" y="47" width="3" height="3"/>
+      </g>
+    </g>
+    <pattern id="motif" width="64" height="120" patternUnits="userSpaceOnUse" patternTransform="rotate(-20)">
+      <use xlink:href="#code" href="#code"/>
+      <use xlink:href="#code" href="#code" x="32" y="60"/>
+      <use xlink:href="#code" href="#code" x="-32" y="60"/>
+    </pattern>
+  </defs>
+  <rect width="2400" height="2400" fill="url(#motif)"/>
+</svg>

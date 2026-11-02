@@ -1,0 +1,396 @@
+/* Direction artistique « ticket de caisse » : papier kraft, tickets imprimés, police monospace lisible */
+:root {
+  --bg: #e9dcc3;           /* kraft */
+  --paper: #fbf8f1;        /* ticket */
+  --ink: #241e1a;
+  --muted: #5e544b;
+  --line: #2a221d;
+  --dash: rgba(36, 30, 26, .35);
+  --accent: #241e1a;
+  --accent-ink: #fbf8f1;
+  --red: #c8102e;
+  --green: #2e7d4f;
+  --grey: #6f665e;
+  --orange: #c26a00;
+  --hl: #2fd18b;           /* surligneur vert des alternatives */
+  --hl-ink: #0b3d27;
+  --radius: 4px;
+  --font: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171411;
+    --paper: #26211c;
+    --ink: #f3ebdc;
+    --muted: #b8ab9a;
+    --line: #f3ebdc;
+    --dash: rgba(243, 235, 220, .3);
+    --accent: #f3ebdc;
+    --accent-ink: #171411;
+    --red: #e0384f;
+    --green: #3fa76a;
+    --grey: #8a8076;
+    --orange: #e08a1e;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 var(--font);
+  min-height: 100dvh;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 20px) 16px calc(env(safe-area-inset-bottom) + 32px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+a { color: inherit; }
+
+/* Bord dentelé d'un ticket déchiré, en haut et en bas */
+.ticket, .verdict, .brands, .topic, .scanner, .foot, .sources {
+  position: relative;
+  background: var(--paper);
+  margin: 8px 0;
+}
+.ticket::before, .ticket::after,
+.verdict::before, .verdict::after,
+.brands::before, .brands::after,
+.topic::before, .topic::after,
+.scanner::before, .scanner::after,
+.foot::before, .foot::after,
+.sources::before, .sources::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background:
+    linear-gradient(135deg, var(--paper) 50%, transparent 50%) 0 0 / 16px 8px repeat-x,
+    linear-gradient(225deg, var(--paper) 50%, transparent 50%) 0 0 / 16px 8px repeat-x;
+}
+.ticket::before, .verdict::before, .brands::before, .topic::before, .scanner::before, .foot::before, .sources::before { top: -8px; transform: scaleY(-1); }
+.ticket::after, .verdict::after, .brands::after, .topic::after, .scanner::after, .foot::after, .sources::after { bottom: -8px; }
+
+/* En-tête */
+.top { text-align: center; padding-top: 4px; }
+.logo {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo::before, .logo::after { content: "—"; font-weight: 400; color: var(--muted); }
+.logo-n {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.tagline { margin: 6px 0 0; color: var(--muted); font-size: .95rem; }
+
+/* Boutons */
+.btn {
+  appearance: none;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  min-height: 52px;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .08s ease, opacity .15s;
+}
+.btn:active { transform: scale(.97); }
+.btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-ghost { background: var(--paper); }
+.btn-small { min-height: 42px; padding: 8px 14px; font-size: .85rem; }
+
+.actions { display: grid; gap: 10px; }
+.actions .btn-primary { min-height: 68px; font-size: 1.05rem; }
+
+/* Scanner */
+.scanner { padding: 14px; display: grid; gap: 10px; justify-items: center; }
+.scanner[hidden] { display: none; }
+#reader { width: 100%; overflow: hidden; background: #000; min-height: 220px; }
+#reader video { width: 100% !important; display: block; object-fit: cover; }
+.scanner-hint { margin: 0; color: var(--muted); font-size: .9rem; }
+
+/* Recherche */
+.search { display: grid; gap: 8px; }
+.search-label { font-weight: 500; font-size: .9rem; color: var(--muted); }
+.search-row { display: flex; gap: 8px; }
+.search input {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 2px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+}
+.search input::placeholder { color: var(--muted); opacity: .8; }
+.search input:focus { outline: 3px solid var(--hl); outline-offset: 1px; }
+.btn-go { width: 56px; padding: 0; flex: none; }
+
+/* Résultat : un ticket imprimé */
+.result:empty { display: none; }
+.verdict { animation: print .35s ease-out; }
+@keyframes print { from { transform: translateY(-14px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.verdict-head {
+  margin: 16px 16px 0;
+  padding: 20px 14px 18px;
+  text-align: center;
+  color: #fff;
+  border: 3px double rgba(255, 255, 255, .55);
+  outline: 3px solid var(--paper);
+  outline-offset: -6px;
+}
+.verdict--nestle .verdict-head { background: var(--red); }
+.verdict--clean .verdict-head { background: var(--green); }
+.verdict--maybe .verdict-head { background: var(--orange); }
+.verdict--unknown .verdict-head { background: var(--grey); }
+.verdict--loading .verdict-head { background: transparent; color: var(--ink); border: 2px dashed var(--dash); outline: 0; }
+
+.verdict-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 6px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.verdict-title { margin: 0; font-size: 1.75rem; font-weight: 700; line-height: 1.15; text-transform: uppercase; letter-spacing: .02em; }
+.verdict-sub { margin: 8px 0 0; font-size: .95rem; }
+
+.verdict-body { padding: 16px 16px 20px; display: grid; gap: 14px; }
+/* Code-barres décoratif en pied de ticket */
+.verdict-body::after {
+  content: "";
+  display: block;
+  height: 34px;
+  margin-top: 4px;
+  opacity: .8;
+  background: repeating-linear-gradient(90deg,
+    var(--ink) 0 2px, transparent 2px 4px, var(--ink) 4px 5px, transparent 5px 8px,
+    var(--ink) 8px 11px, transparent 11px 13px, var(--ink) 13px 14px, transparent 14px 17px);
+}
+
+.product { display: flex; gap: 14px; align-items: center; padding-bottom: 14px; border-bottom: 2px dashed var(--dash); }
+.product img { width: 64px; height: 64px; object-fit: contain; background: #fff; flex: none; }
+.product-name { margin: 0; font-weight: 700; font-size: 1.05rem; }
+.product-brand { margin: 2px 0 0; color: var(--muted); font-size: .9rem; }
+.match { margin: 0; font-size: .95rem; }
+.match strong { font-size: 1.05rem; }
+.note { margin: 0; font-size: .88rem; color: var(--muted); }
+
+/* Alternatives surlignées en vert */
+.alts { display: grid; gap: 10px; padding-top: 14px; border-top: 2px dashed var(--dash); counter-reset: alt; }
+.alts-title { margin: 0; font-weight: 700; font-size: .9rem; text-transform: uppercase; letter-spacing: .06em; }
+.alts-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.alts-list li {
+  counter-increment: alt;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: start;
+  padding: 8px 14px 8px 8px;
+  border-radius: 999px;
+  background: var(--hl);
+  color: var(--hl-ink);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+.alts-list li::before {
+  content: counter(alt, decimal-leading-zero);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--hl-ink);
+  color: var(--hl);
+  font-size: .8rem;
+}
+
+.verdict-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.verdict-links a, .verdict-links button {
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--ink);
+  background: transparent;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 7px 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.suggest { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.spinner {
+  width: 36px; height: 36px; margin: 0 auto 10px;
+  border: 4px solid currentColor; border-right-color: transparent; border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Liste des marques */
+.brands { padding: 6px 16px; }
+.brands summary { cursor: pointer; font-weight: 700; padding: 12px 0; }
+.brands[open] { padding-bottom: 18px; }
+#brand-filter {
+  width: 100%;
+  font: inherit;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  border: 2px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.brand-group h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 16px 0 6px; padding-bottom: 4px; border-bottom: 2px dashed var(--dash); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  font: inherit;
+  font-size: .88rem;
+  border: 1.5px solid var(--dash);
+  background: transparent;
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.suggest .chip { background: var(--hl); color: var(--hl-ink); border-color: transparent; font-weight: 700; border-radius: 999px; }
+.chip[data-note]::after { content: " *"; color: var(--red); }
+
+/* Lien vers la page « Pourquoi » */
+.why-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+}
+.why-link span { flex: 1; }
+.why-link small { display: block; font-weight: 400; color: var(--muted); font-size: .85rem; }
+.why-link::after { content: "→"; font-size: 1.3rem; }
+
+/* Page « Pourquoi certains boycottent Nestlé » */
+.back { margin-top: -4px; }
+.page-head h1 { margin: 0 0 10px; font-size: 1.6rem; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+.lead { margin: 0; font-size: 1rem; }
+.toc { margin: 14px 0 0; padding-left: 26px; display: grid; gap: 4px; }
+.toc a { color: var(--ink); font-weight: 500; }
+.page-head .note a { color: inherit; }
+
+.topic { padding: 20px 18px; scroll-margin-top: 16px; }
+.topic-plain { display: grid; gap: 4px; }
+.topic h2 { margin: 0 0 12px; font-size: 1.15rem; line-height: 1.3; padding-bottom: 10px; border-bottom: 2px dashed var(--dash); }
+.topic p, .topic li { margin: 0 0 10px; font-size: .95rem; }
+.topic ul { padding-left: 20px; margin: 0; }
+.topic-tag {
+  display: inline-block;
+  margin: 0 0 10px !important;
+  padding: 2px 8px;
+  font-size: .72rem !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #fff;
+  background: var(--red);
+}
+.topic-check .topic-tag { background: var(--orange); }
+.reply {
+  margin-top: 4px;
+  padding: 12px 14px;
+  border: 2px dashed var(--dash);
+  font-size: .88rem;
+  color: var(--muted);
+}
+.reply strong { color: var(--ink); }
+.topic .cite { margin: 12px 0 0; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+.topic .cite a { color: var(--muted); }
+
+.sources { padding: 18px; }
+.sources h2 { font-size: 1rem; text-transform: uppercase; margin: 0 0 8px; }
+.sources ul { padding-left: 20px; margin: 0 0 12px; display: grid; gap: 6px; font-size: .88rem; }
+
+.foot { color: var(--muted); font-size: .8rem; text-align: center; padding: 14px 16px; }
+.foot p { margin: 4px 0; }
+
+/* Fond de l'accueil : codes-barres percés d'un N, couleur d'encre selon le thème */
+.decor {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--ink);
+  opacity: .1;
+  -webkit-mask: url("motif-codes.svg") center top / 2400px 2400px no-repeat;
+  mask: url("motif-codes.svg") center top / 2400px 2400px no-repeat;
+}
+
+/* Mur de flammes (résultat Nestlé) : image fixe du bas de l'écran jusqu'au milieu, derrière le contenu */
+.app { position: relative; z-index: 1; }
+.flames {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50vh;
+  pointer-events: none;
+  z-index: 0;
+  background: url("flammes.svg") repeat-x left bottom / auto 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility 0s .3s;
+}
+.flames--on { opacity: 1; visibility: visible; transition: opacity .3s ease; }
+
+/* Confettis (résultat « pas Nestlé ») */
+.confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }

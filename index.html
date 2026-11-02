@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Le fameux N</title>
+  <meta name="description" content="Scannez un produit et découvrez s'il appartient au groupe Nestlé.">
+  <meta name="theme-color" content="#e9dcc3" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#171411" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Le fameux N">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="decor" aria-hidden="true"></div>
+  <main class="app">
+    <header class="top">
+      <h1 class="logo"><span class="logo-n" aria-hidden="true">N</span> Le fameux N</h1>
+      <p class="tagline">Ce produit, c'est Nestlé&nbsp;ou&nbsp;pas&nbsp;?</p>
+    </header>
+
+    <section class="actions" aria-label="Scanner un produit">
+      <button id="btn-scan" class="btn btn-primary" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V4h3M21 7V4h-3M3 17v3h3M21 17v3h-3M7 8v8M10 8v8M13 8v8M16 8v8"/></svg>
+        Scanner un code-barres
+      </button>
+      <label class="btn btn-ghost" for="photo-input">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        Depuis une photo
+      </label>
+      <input id="photo-input" type="file" accept="image/*" capture="environment" hidden>
+      <div id="photo-reader" hidden></div>
+    </section>
+
+    <section id="scanner" class="scanner" hidden aria-label="Caméra">
+      <div id="reader"></div>
+      <p class="scanner-hint">Placez le code-barres dans le cadre</p>
+      <button id="btn-stop" class="btn btn-ghost btn-small" type="button">Fermer la caméra</button>
+    </section>
+
+    <form id="search-form" class="search" autocomplete="off" role="search">
+      <label for="search-input" class="search-label">Ou tapez une marque (ou un code-barres)</label>
+      <div class="search-row">
+        <input id="search-input" type="search" inputmode="search" list="brand-list"
+               placeholder="ex. Vittel, Felix, 3017620422003" enterkeyhint="search">
+        <button class="btn btn-primary btn-go" type="submit" aria-label="Rechercher">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+        </button>
+      </div>
+      <datalist id="brand-list"></datalist>
+    </form>
+
+    <section id="result" class="result" aria-live="polite"></section>
+
+    <a class="why-link" href="./pourquoi.html">
+      <span>Pourquoi certains boycottent Nestlé<small>Les controverses, la réponse de Nestlé et les sources</small></span>
+    </a>
+
+    <details class="brands">
+      <summary>Voir toutes les marques Nestlé de la liste <span id="brand-count"></span></summary>
+      <input id="brand-filter" type="search" placeholder="Filtrer…" aria-label="Filtrer les marques">
+      <div id="brand-groups"></div>
+    </details>
+
+    <a id="report-link" class="btn btn-ghost" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4h11l-1.5 4L16 12H5"/></svg>
+      Signaler une erreur ou une marque manquante
+    </a>
+
+    <footer class="foot">
+      <p>Données produits : <a href="https://world.openfoodfacts.org" target="_blank" rel="noopener">Open Food Facts</a> (licence ODbL).</p>
+      <p id="list-date">Liste de marques indicative.</p>
+      <p>Les marques changent de mains (ventes, licences, coentreprises) : vérifiez en cas de doute.</p>
+      <p>Application indépendante, sans lien avec Nestlé. Les marques citées appartiennent à leurs propriétaires.</p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
