@@ -97,15 +97,12 @@ a { color: inherit; }
   gap: 12px;
 }
 .logo::before, .logo::after { content: "—"; font-weight: 400; color: var(--muted); }
+/* Marque : le code-barres percé d'un N, comme l'icône et le fond */
 .logo-n {
-  display: inline-grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  font-size: 1.3rem;
-  line-height: 1;
+  width: 46px;
+  height: 40px;
+  flex: none;
+  fill: var(--ink);
 }
 .tagline { margin: 6px 0 0; color: var(--muted); font-size: .95rem; }
 

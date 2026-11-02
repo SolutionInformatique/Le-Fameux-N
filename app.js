@@ -230,6 +230,8 @@ function productHtml(p) {
 function render(kind, { title, sub, body = "", actions = [] }) {
   if (kind === "nestle") startFlames();
   else stopFlames();
+  // Les confettis d'un résultat précédent ne doivent pas tomber sur un nouveau résultat
+  if (kind !== "clean") document.querySelectorAll(".confetti").forEach((c) => c.remove());
   resultEl.innerHTML = `<article class="verdict verdict--${kind}">
     <div class="verdict-head">${kind === "loading" ? `<div class="spinner"></div>` : ICONS[kind]}
       <p class="verdict-title">${esc(title)}</p>
