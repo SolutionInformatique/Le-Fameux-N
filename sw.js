@@ -1,6 +1,6 @@
 // Service worker : l'app fonctionne hors ligne (sauf l'interrogation d'Open Food Facts).
 // Changer VERSION à chaque mise en ligne pour forcer la mise à jour des fichiers en cache.
-const VERSION = "fameux-n-v12";
+const VERSION = "fameux-n-v13";
 const LIB = "https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js";
 const SHELL = [
   "./",
@@ -13,9 +13,9 @@ const SHELL = [
   "./motif-codes.svg",
   "./marques-nestle.json",
   "./manifest.webmanifest",
-  "./icons/icon-192.png",
-  "./icons/icon-512.png",
-  "./icons/apple-touch-icon.png",
+  "./icon-192.png",
+  "./icon-512.png",
+  "./apple-touch-icon.png",
   LIB,
 ];
 
