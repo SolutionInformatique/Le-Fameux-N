@@ -73,6 +73,10 @@ Chaque signalement est vérifié avant correction.
 - L'app ne collecte aucune donnée : pas de compte, pas de statistiques de visite. Le code-barres scanné est envoyé à Open Food Facts pour trouver le produit ; la police et la librairie de scan sont chargées depuis Google Fonts et jsDelivr.
 - La liste de marques est indicative et datée : en cas de doute, vérifie sur l'emballage.
 
+## Qui a fait cette app ?
+
+Le fameux N a été conçu et développé par **MJ Solution Informatique** : création de sites et d'applications web, réparation de matériel informatique et maintenance, pour les particuliers, les commerces et les indépendants. Un projet ou un ordinateur en panne ? Écris-nous via [notre profil GitHub](https://github.com/SolutionInformatique).
+
 ---
 
 <details>
