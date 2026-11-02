@@ -232,6 +232,9 @@ function render(kind, { title, sub, body = "", actions = [] }) {
   else stopFlames();
   // Les confettis d'un résultat précédent ne doivent pas tomber sur un nouveau résultat
   if (kind !== "clean") document.querySelectorAll(".confetti").forEach((c) => c.remove());
+  // Statistique anonyme : seulement la couleur du résultat
+  const evenements = { nestle: "nestle", clean: "pas-nestle", maybe: "ca-depend", unknown: "inconnu" };
+  if (evenements[kind] && window.compterEvenement) window.compterEvenement(evenements[kind]);
   resultEl.innerHTML = `<article class="verdict verdict--${kind}">
     <div class="verdict-head">${kind === "loading" ? `<div class="spinner"></div>` : ICONS[kind]}
       <p class="verdict-title">${esc(title)}</p>

@@ -70,7 +70,7 @@ Chaque signalement est vérifié avant correction.
 ## À savoir
 
 - Application **indépendante**, sans aucun lien avec Nestlé. Les marques citées appartiennent à leurs propriétaires respectifs.
-- L'app ne collecte aucune donnée : pas de compte, pas de statistiques de visite. Le code-barres scanné est envoyé à Open Food Facts pour trouver le produit ; la police et la librairie de scan sont chargées depuis Google Fonts et jsDelivr.
+- L'app ne collecte aucune donnée personnelle : pas de compte, pas de cookies. Un compteur de visites anonyme ([GoatCounter](https://www.goatcounter.com)) compte seulement le nombre de visites et la couleur des résultats affichés, jamais les produits scannés. Le code-barres scanné est envoyé à Open Food Facts pour trouver le produit ; la police et la librairie de scan sont chargées depuis Google Fonts et jsDelivr.
 - La liste de marques est indicative et datée : en cas de doute, vérifie sur l'emballage.
 
 ## Open source

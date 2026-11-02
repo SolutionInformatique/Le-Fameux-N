@@ -1,6 +1,6 @@
 // Service worker : l'app fonctionne hors ligne (sauf l'interrogation d'Open Food Facts).
 // Changer VERSION à chaque mise en ligne pour forcer la mise à jour des fichiers en cache.
-const VERSION = "fameux-n-v15";
+const VERSION = "fameux-n-v16";
 const LIB = "https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js";
 const SHELL = [
   "./",
@@ -36,8 +36,8 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   const url = new URL(req.url);
 
-  // Open Food Facts : toujours en direct
-  if (url.hostname.endsWith("openfoodfacts.org")) return;
+  // Open Food Facts et compteur de visites : toujours en direct
+  if (url.hostname.endsWith("openfoodfacts.org") || url.hostname.endsWith("goatcounter.com") || url.hostname === "gc.zgo.at") return;
 
   // La liste des marques : réseau d'abord pour avoir la dernière version, cache sinon
   if (url.pathname.endsWith("/marques-nestle.json")) {
